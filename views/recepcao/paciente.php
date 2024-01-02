@@ -1,7 +1,7 @@
 <?php
 // CARREGANDO SCRIPTS DE CONEXÃO E CONFIGURAÇÃO DO SISTEMA ( BANCO DE DADOS )
-require_once("../config/config.php");
-require_once("../config/conexao.php");
+include_once $_SERVER['DOCUMENT_ROOT'] . '/hosp-e/config/config.php';
+include_once $_SERVER['DOCUMENT_ROOT'] . '/hosp-e/config/conexao.php';
 ?>
 
 <!-- 1| AREA DO BOTA QUE IRA CHAMAR O MODAL DE CADASTRAR NOVO PACIENTE-->
@@ -69,259 +69,262 @@ require_once("../config/conexao.php");
 				<div class="modal-body">
 
 
-<form method="post">
+					<form method="post">
 
-	<div class="row">
-		<div class="col-md-6">
-			<div class="form-group">
+						<div class="row">
+							<div class="col-md-6">
+								<div class="form-group">
 
-				<input type="hidden" id="id" name="id" value="<?php echo $id_reg ?>" required>
+									<input type="hidden" id="id" name="id" value="<?php echo $id_reg ?>" required>
 
-				<input type="hidden" id="campo_antigo" name="campo_antigo" value="<?php echo $cpf ?>"
-					required>
+									<input type="hidden" id="campo_antigo" name="campo_antigo"
+										value="<?php echo $cpf ?>" required>
 
-				<label for="exampleFormControlInput1">Nome *</label>
-				<input type="text" class="form-control" id="nome" placeholder="Insira o Nome "
-					name="nome" value="<?php echo $nome ?>" required>
-					
-			</div>
-		</div>
+									<label for="exampleFormControlInput1">Nome *</label>
+									<input type="text" class="form-control" id="nome" placeholder="Insira o Nome "
+										name="nome" value="<?php echo $nome ?>" required>
 
-		<div class="col-md-4">
-			<div class="form-group">
-				<label for="exampleFormControlInput1">CPF </label>
-				<input type="text" class="form-control" id="cpf" placeholder="Insira o CPF " name="cpf"
-					value="<?php echo isset($cpf) ? $cpf : ''; ?>" onblur="validarCPF(this)" required>
+								</div>
+							</div>
 
-					<div id="res" name="res"></div>
-			</div>
-		</div>
+							<div class="col-md-4">
+								<div class="form-group">
+									<label for="exampleFormControlInput1">CPF </label>
+									<input type="text" class="form-control" id="cpf" placeholder="Insira o CPF "
+										name="cpf" value="<?php echo isset($cpf) ? $cpf : ''; ?>"
+										onblur="validarCPF(this)" required>
 
-		<div class="col-md-2">
-			<div class="form-group">
-				<label for="exampleFormControlInput1">Nº REGISTRO</label>
-				<input type="text" class="form-control" id="nreg" placeholder="Insira o Nº " name="nreg"
-					value="<?php echo $nreg ?>" required>
-			</div>
+									<div id="res" name="res"></div>
+								</div>
+							</div>
 
-		</div>
+							<div class="col-md-2">
+								<div class="form-group">
+									<label for="exampleFormControlInput1">Nº REGISTRO</label>
+									<input type="text" class="form-control" id="nreg" placeholder="Insira o Nº "
+										name="nreg" value="<?php echo $nreg ?>" required>
+								</div>
 
-	</div>
+							</div>
 
-
-
-	<div class="row">
-
-		<div class="col-md-4">
-			<div class="form-group">
-				<label for="exampleFormControlInput1">RG *</label>
-				<input type="text" class="form-control" id="rg" placeholder="Insira o RG " name="rg"
-					value="<?php echo $rg ?>" required>
-			</div>
-
-		</div>
-
-		<div class="col-md-4">
-			<div class="form-group">
-				<label for="exampleFormControlInput1">Telefone *</label>
-				<input type="text" class="form-control" id="telefone" placeholder="Insira o Telefone "
-					name="telefone" value="<?php echo $telefone ?>" required>
-			</div>
-		</div>
-
-		<div class="col-md-4">
-			<div class="form-group">
-				<label for="exampleFormControlInput1">Email</label>
-				<input type="email" class="form-control" id="telefone" placeholder="Insira o Email "
-					name="email" value="<?php echo $email ?>" required>
-			</div>
-		</div>
-
-	</div>
+						</div>
 
 
 
+						<div class="row">
 
+							<div class="col-md-4">
+								<div class="form-group">
+									<label for="exampleFormControlInput1">RG *</label>
+									<input type="text" class="form-control" id="rg" placeholder="Insira o RG " name="rg"
+										value="<?php echo $rg ?>" required>
+								</div>
 
+							</div>
 
-	<div class="row">
-		<div class="col-md-4">
-			<label for="exampleFormControlSelect1">Estado Civil *</label>
-			<select class="form-control" id="" name="civil">
-				<option value="">Selecione</option> <!-- Adicione uma opção em branco -->
-				<?php if (isset($_GET['funcao']) && $_GET['funcao'] == 'editar'): ?>
-					<option value="<?php echo $civil ?>">
-						<?php echo $civil ?>
-					</option>
-				<?php endif; ?>
-				<?php if ($civil != 'Solteiro'): ?>
-					<option value="Solteiro">Solteiro</option>
-				<?php endif; ?>
-				<?php if ($civil != 'Casado'): ?>
-					<option value="Casado">Casado</option>
-				<?php endif; ?>
-				<?php if ($civil != 'Viúvo'): ?>
-					<option value="Viúvo">Viúvo</option>
-				<?php endif; ?>
-			</select>
-		</div>
+							<div class="col-md-4">
+								<div class="form-group">
+									<label for="exampleFormControlInput1">Telefone *</label>
+									<input type="text" class="form-control" id="telefone"
+										placeholder="Insira o Telefone " name="telefone" value="<?php echo $telefone ?>"
+										required>
+								</div>
+							</div>
 
-		<div class="col-md-4">
-			<label for="exampleFormControlSelect1">Sexo *</label>
-			<select class="form-control" id="" name="sexo">
-				<option value="">Selecione</option> <!-- Adicione uma opção em branco -->
-				<?php
-				if ($_GET['funcao'] == 'editar') {
-					echo '<option value="' . $sexo . '">' . $sexo . '</option>';
-				}
-				?>
-				<?php if ($sexo != 'Feminino'): ?>
-					<option value="Feminino">Feminino</option>
-				<?php endif; ?>
-				<?php if ($sexo != 'Masculino'): ?>
-					<option value="Masculino">Masculino</option>
-				<?php endif; ?>
-			</select>
-		</div>
+							<div class="col-md-4">
+								<div class="form-group">
+									<label for="exampleFormControlInput1">Email</label>
+									<input type="email" class="form-control" id="telefone" placeholder="Insira o Email "
+										name="email" value="<?php echo $email ?>" required>
+								</div>
+							</div>
 
-		<div class="col-md-4">
-			<div class="form-group">
-				<label for="exampleFormControlInput1">Data Nascimento *</label>
-				<input type="date" class="form-control" id="data" name="data"
-					value="<?php echo $data ?>" required>
-			</div>
-		</div>
-	</div>
-
-
-
-
-
-	<div class="form-group">
-		<label for="exampleFormControlInput1">Endereço *</label>
-		<input type="text" class="form-control" id="endereco" placeholder="Insira o Endereço "
-			name="endereco" value="<?php echo $endereco ?>" required>
-	</div>
-
-
-	<div class="form-group">
-		<label for="exampleFormControlInput1">Observações</label>
-		<textarea class="form-control" id="obs" name="obs"
-			maxlength="350"><?php echo $obs; ?></textarea>
-	</div>
+						</div>
 
 
 
 
 
 
+						<div class="row">
+							<div class="col-md-4">
+								<label for="exampleFormControlSelect1">Estado Civil *</label>
+								<select class="form-control" id="" name="civil">
+									<option value="">Selecione</option> <!-- Adicione uma opção em branco -->
+									<?php if (isset($_GET['funcao']) && $_GET['funcao'] == 'editar'): ?>
+										<option value="<?php echo $civil ?>">
+											<?php echo $civil ?>
+										</option>
+									<?php endif; ?>
+									<?php if ($civil != 'Solteiro'): ?>
+										<option value="Solteiro">Solteiro</option>
+									<?php endif; ?>
+									<?php if ($civil != 'Casado'): ?>
+										<option value="Casado">Casado</option>
+									<?php endif; ?>
+									<?php if ($civil != 'Viúvo'): ?>
+										<option value="Viúvo">Viúvo</option>
+									<?php endif; ?>
+								</select>
+							</div>
 
-
-	<div id="mensagem" class="">
-
-	</div>
-
-</div>
-<div class="modal-footer">
-<button id="btn-fechar" type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-
-<button type="submit" name="<?php echo $nome_botao ?>" id="<?php echo $nome_botao ?>"
-	class="btn btn-primary">
-	<?php echo $nome_botao ?>
-</button>
-
-</div>
-</form>
-</div>
-</div>
-</div>
-
-
-<!-- MODAL NOVO PACIENTE -->
-<script>
-	$(document).ready(function () {
-		// Quando o botão for clicado, o modal será aberto
-		$("#btn-novo").click(function () {
-			$("#modal").modal("show");
-		});
-	});
-</script>
-
-<!--MASCARAS -->
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.min.js"></script>
-
-<script src="../js/mascaras.js"></script>
-
-<!--AJAX PARA INSERÇÃO DOS DADOS -->
-<script type="text/javascript">
-	$(document).ready(function () {
-		var pag = "<?= $pagina ?>";
-
-		$('#Salvar').click(function (event) {
-			event.preventDefault();
-
-			// Exibir caixa de diálogo de confirmação usando SweetAlert2
-			Swal.fire({
-				title: 'Confirmar Cadastro',
-				text: 'Deseja realmente cadastrar este paciente?',
-				icon: 'question',
-				showCancelButton: true,
-				confirmButtonText: 'Sim',
-				cancelButtonText: 'Não'
-			}).then((result) => {
-				if (result.isConfirmed) {
-
-					// O usuário confirmou, então prosseguir com o cadastro
-
-					$.ajax({
-						url: pag + "/inserir.php",
-						method: "post",
-						data: $('form').serialize(),
-						dataType: "text",
-						success: function (mensagem) {
-							$('#mensagem').removeClass();
-
-							if (mensagem == 'Cadastrado com Sucesso!!') {
-								$('#mensagem').addClass('mensagem-sucesso');
-								$('#nome').val('');
-								$('#cpf').val('');
-								$('#telefone').val('');
-								$('#crm').val('');
-								$('#email').val('');
-								$('#txtbuscar').val('');
-								$('#btn-buscar').click();
-
-								// Exibir caixa de diálogo personalizada
-								Swal.fire({
-									title: 'Paciente cadastrado com sucesso!',
-									text: 'Deseja adicionar mais um paciente?',
-									icon: 'question',
-									showCancelButton: true,
-									confirmButtonText: 'Sim',
-									cancelButtonText: 'Não'
-								}).then((result) => {
-									if (result.isConfirmed) {
-										// Redirecionar para a página de cadastro
-										window.location.href = 'index.php?menu=pacientes&funcao=novo';
-									} else {
-										window.location.href = 'index.php?menu=pacientes';
+							<div class="col-md-4">
+								<label for="exampleFormControlSelect1">Sexo *</label>
+								<select class="form-control" id="" name="sexo">
+									<option value="">Selecione</option> <!-- Adicione uma opção em branco -->
+									<?php
+									if ($_GET['funcao'] == 'editar') {
+										echo '<option value="' . $sexo . '">' . $sexo . '</option>';
 									}
-								});
-							} else {
-								$('#mensagem').addClass('mensagem-erro');
-								// Exibir mensagem de erro do servidor no SweetAlert2
-								Swal.fire({
-									title: 'Erro!',
-									text: mensagem, // A mensagem de erro do servidor
-									icon: 'error'
-								});
-							}
-						},
-					});
-				}
+									?>
+									<?php if ($sexo != 'Feminino'): ?>
+										<option value="Feminino">Feminino</option>
+									<?php endif; ?>
+									<?php if ($sexo != 'Masculino'): ?>
+										<option value="Masculino">Masculino</option>
+									<?php endif; ?>
+								</select>
+							</div>
+
+							<div class="col-md-4">
+								<div class="form-group">
+									<label for="exampleFormControlInput1">Data Nascimento *</label>
+									<input type="date" class="form-control" id="data" name="data"
+										value="<?php echo $data ?>" required>
+								</div>
+							</div>
+						</div>
+
+
+
+
+
+						<div class="form-group">
+							<label for="exampleFormControlInput1">Endereço *</label>
+							<input type="text" class="form-control" id="endereco" placeholder="Insira o Endereço "
+								name="endereco" value="<?php echo $endereco ?>" required>
+						</div>
+
+
+						<div class="form-group">
+							<label for="exampleFormControlInput1">Observações</label>
+							<textarea class="form-control" id="obs" name="obs"
+								maxlength="350"><?php echo $obs; ?></textarea>
+						</div>
+
+
+
+
+
+
+
+
+						<div id="mensagem" class="">
+
+						</div>
+
+				</div>
+				<div class="modal-footer">
+					<button id="btn-fechar" type="button" class="btn btn-secondary"
+						data-dismiss="modal">Cancelar</button>
+
+					<button type="submit" name="<?php echo $nome_botao ?>" id="<?php echo $nome_botao ?>"
+						class="btn btn-primary">
+						<?php echo $nome_botao ?>
+					</button>
+
+				</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+
+	<!-- MODAL NOVO PACIENTE -->
+	<script>
+		$(document).ready(function () {
+			// Quando o botão for clicado, o modal será aberto
+			$("#btn-novo").click(function () {
+				$("#modal").modal("show");
 			});
 		});
-	});
+	</script>
 
-</script>
+	<!--MASCARAS -->
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.min.js"></script>
+
+	<script src="../js/mascaras.js"></script>
+
+	<!--AJAX PARA INSERÇÃO DOS DADOS -->
+	<script type="text/javascript">
+		$(document).ready(function () {
+			var pag = "<?= $pagina ?>";
+
+			$('#Salvar').click(function (event) {
+				event.preventDefault();
+
+				// Exibir caixa de diálogo de confirmação usando SweetAlert2
+				Swal.fire({
+					title: 'Confirmar Cadastro',
+					text: 'Deseja realmente cadastrar este paciente?',
+					icon: 'question',
+					showCancelButton: true,
+					confirmButtonText: 'Sim',
+					cancelButtonText: 'Não'
+				}).then((result) => {
+					if (result.isConfirmed) {
+
+						// O usuário confirmou, então prosseguir com o cadastro
+
+						$.ajax({
+							url: "paciente/inserir.php",
+							method: "post",
+							data: $('form').serialize(),
+							dataType: "text",
+							success: function (mensagem) {
+								$('#mensagem').removeClass();
+
+								if (mensagem == 'Cadastrado com Sucesso!!') {
+									$('#mensagem').addClass('mensagem-sucesso');
+									$('#nome').val('');
+									$('#cpf').val('');
+									$('#telefone').val('');
+									$('#crm').val('');
+									$('#email').val('');
+									$('#txtbuscar').val('');
+									$('#btn-buscar').click();
+
+									// Exibir caixa de diálogo personalizada
+									Swal.fire({
+										title: 'Paciente cadastrado com sucesso!',
+										text: 'Deseja adicionar mais um paciente?',
+										icon: 'question',
+										showCancelButton: true,
+										confirmButtonText: 'Sim',
+										cancelButtonText: 'Não'
+									}).then((result) => {
+										if (result.isConfirmed) {
+											// Redirecionar para a página de cadastro
+											window.location.href = 'index.php?menu=pacientes&funcao=novo';
+										} else {
+											window.location.href = 'index.php?menu=pacientes';
+										}
+									});
+								} else {
+									$('#mensagem').addClass('mensagem-erro');
+									// Exibir mensagem de erro do servidor no SweetAlert2
+									Swal.fire({
+										title: 'Erro!',
+										text: mensagem, // A mensagem de erro do servidor
+										icon: 'error'
+									});
+								}
+							},
+						});
+					}
+				});
+			});
+		});
+
+	</script>
