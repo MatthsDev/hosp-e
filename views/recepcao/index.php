@@ -4,6 +4,20 @@
 include_once $_SERVER['DOCUMENT_ROOT'] . '/hosp-e/config/config.php';
 include_once $_SERVER['DOCUMENT_ROOT'] . '/hosp-e/config/conexao.php';
 
+$item1 = 'home';
+$item2 = 'paciente';
+$item3 = 'atendimento';
+$item4 = '$$';
+
+$items = array($item1, $item2, $item3, $item4);
+$menu = isset($_GET['menu']) ? $_GET['menu'] : '';
+
+if ($menu === '' || !in_array($menu, $items)) {
+    $item1ativo = 'active'; // Definir o menu home como ativo por padrão
+} else {
+    ${$menu . 'ativo'} = 'active';
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -12,7 +26,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/hosp-e/config/conexao.php';
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hopistal-SYS</title>
-    <link rel="stylesheet" href="css/painel.css">
+    <link rel="stylesheet" href="../css/painel.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10">
 
     <!-- Bootstrap CSS -->
@@ -79,24 +93,63 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/hosp-e/config/conexao.php';
             <div class="col-md-3 col-sm-12 mb-4">
 
                 <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                    <a class="nav-link menu-link home-link" href="home.php" id="v-pills-home-tab" role="tab"
+                    <!-- Adicione uma div onde o conteúdo será carregado dinamicamente -->
+                    <a class="nav-link <?php echo ($menu === $item1 || $menu === '') ? 'active' : ''; ?>"
+                        id="v-pills-home-tab" href="index.php?menu=<?php echo $item1; ?>" role="tab"
                         aria-controls="v-pills-home" aria-selected="true">
                         <i class="fas fa-home mr-1"></i>Home
                     </a>
 
-                    <a class="nav-link menu-link paciente-link" href="paciente.php" id="v-pills-paciente-tab" role="tab"
-                        aria-controls="v-pills-paciente" aria-selected="true">
-                        <i class="fas fa-home mr-1"></i>Cadastrar Pacientes
+                    <a class="nav-link <?php echo ($menu === $item2) ? 'active' : ''; ?>" id="link-medicos"
+                        href="index.php?menu=<?php echo $item2; ?>" role="tab" aria-controls="v-pills-profile"
+                        aria-selected="false">
+                        <i class="fas fa-user-md mr-1"></i>Cadastro de Pacientes
                     </a>
 
-                    <a class="nav-link menu-link paciente-link" href="atendimento.php" id="v-pills-paciente-tab"
-                        role="tab" aria-controls="v-pills-paciente" aria-selected="true">
-                        <i class="fas fa-home mr-1"></i>Atendimento
+                    <a class="nav-link <?php echo ($menu === $item3) ? 'active' : ''; ?>" id="v-pills-messages-tab"
+                        href="index.php?menu=<?php echo $item3; ?>" role="tab" aria-controls="v-pills-messages"
+                        aria-selected="false">
+                        <i class="far fa-user mr-1"></i>Atendimento
+                    </a>
+
+                    <a class="nav-link <?php echo ($menu === $item4) ? 'active' : ''; ?>" id="v-pills-messages-tab"
+                        href="index.php?menu=<?php echo $item4; ?>" role="tab" aria-controls="v-pills-messages"
+                        aria-selected="false">
+                        <i class="far fa-user mr-1"></i>%%
                     </a>
 
 
                 </div>
             </div>
+            <!-- 2.2| CONTEUDO A SER EXIBIDO DE ACORDO COM O MENU ATIVO NA URL ?menu= "$item"  -->
+			<div class="col-md-9 col-sm-12">
+				<div class="tab-content" id="v-pills-tabContent">
+
+
+					<div class="tab-pane fade show active" role="tabpanel">
+						<?php
+						$activeMenu = isset($_GET['menu']) ? $_GET['menu'] : $item1;
+						if ($activeMenu == $item2) {
+
+							include_once($item2 . ".php");
+
+						} elseif ($activeMenu == $item3) {
+
+							include_once($item3 . ".php");
+
+						} elseif ($activeMenu == $item4) {
+
+							include_once($item4 . ".php");
+
+						} else {
+
+							include_once($item1 . ".php");
+						}
+						?>
+					</div>
+				</div>
+			</div>
+			<!-- 2.2| /////////////////////////////////////////////////////////////////////////////////////// -->
 
             <div class="col-md-9 col-sm-12">
                 <div class="tab-content" id="v-pills-tabContent">
